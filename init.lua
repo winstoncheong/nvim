@@ -152,6 +152,9 @@ vim.keymap.set('n', '<leader>od', ':e $MYVIMRC<CR>', { desc = 'open $MYVIMRC' })
 -- Easier switch to alternate file
 vim.keymap.set('n', '<leader><tab>', ':e #<CR>', { desc = 'switch to alternate file' })
 
+-- Easier alternate fold
+vim.keymap.set('n', '<leader>a', 'za', { desc = 'Toggle fold' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
