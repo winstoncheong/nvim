@@ -42,6 +42,17 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Tab and Indent configuration
+-- Read this for explaination of these settings https://arisweedler.medium.com/tab-settings-in-vim-1ea0863c5990
+vim.o.expandtab = true
+vim.o.smartindent = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+
+-- Wrap long lines better
+vim.o.linebreak = true
+
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
@@ -107,6 +118,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- My additional keymaps
 -- Resize with arrows
 vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', {})
 vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', {})
@@ -136,6 +148,9 @@ vim.keymap.set('v', '>', '>gv^', {})
 
 -- Quickly open imporant files
 vim.keymap.set('n', '<leader>od', ':e $MYVIMRC<CR>', { desc = 'open $MYVIMRC' })
+
+-- Easier switch to alternate file
+vim.keymap.set('n', '<leader><tab>', ':e #<CR>', { desc = 'switch to alternate file' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
