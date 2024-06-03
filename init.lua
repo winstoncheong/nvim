@@ -787,6 +787,8 @@ require('lazy').setup(
           --  If you are experiencing weird indenting issues, add the language to
           --  the list of additional_vim_regex_highlighting and disabled languages for indent.
           additional_vim_regex_highlighting = { 'ruby' },
+          -- Disable highlighting for tex files to try fix errors
+          disable = { 'latex', 'tex' },
         },
         indent = { enable = true, disable = { 'ruby' } },
       },
@@ -825,7 +827,16 @@ require('lazy').setup(
 
     -- My addition
     -- for latex
-    { 'vim-latex/vim-latex' },
+    {
+      'vim-latex/vim-latex',
+      -- There is a keymap clash here. This plugin uses Ctrl-J for
+      -- <Plug>IMAP_JumpForward, which is used for its templates.
+      -- This interferes with the Window-split movements.
+      -- Not sure what is the best way to fix this issue..
+      -- For now, want to contain the keymaps to just when current buffer is a tex file.
+      lazy = true,
+      ft = 'tex',
+    },
     {
       'lervag/vimtex',
       init = function()
