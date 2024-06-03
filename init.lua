@@ -107,6 +107,36 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Resize with arrows
+vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', {})
+vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', {})
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', {})
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', {})
+
+-- Navigate buffers
+vim.keymap.set('n', '<S-l>', ':bnext<CR>', {})
+vim.keymap.set('n', '<S-h>', ':bprevious<CR>', {})
+
+-- Move text up and down
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', {})
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', {})
+-- in visual mode
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", {})
+vim.keymap.set('v', 'p', '"_dP', {})
+-- in visual block mode
+vim.keymap.set('x', 'J', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('x', 'K', ":m '<-2<CR>gv=gv", {})
+vim.keymap.set('x', '<A-j>', ":m '>+1<CR>gv=gv", {})
+vim.keymap.set('x', '<A-k>', ":m '<-2<CR>gv=gv", {})
+
+-- Stay in visual mode when indent text
+vim.keymap.set('v', '<', '<gv^', {})
+vim.keymap.set('v', '>', '>gv^', {})
+
+-- Quickly open imporant files
+vim.keymap.set('n', '<leader>od', ':e $MYVIMRC<CR>', { desc = 'open $MYVIMRC' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -449,7 +479,7 @@ require('lazy').setup(
             -- This may be unwanted, since they displace some of your code
             if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
               map('<leader>th', function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled)
               end, '[T]oggle Inlay [H]ints')
             end
           end,
@@ -839,6 +869,15 @@ require('lazy').setup(
       lazy = not vim.g.started_by_firenvim,
       build = function()
         vim.fn['firenvim#install'](0)
+      end,
+    },
+    {
+      's1n7ax/nvim-window-picker',
+      name = 'window-picker',
+      event = 'VeryLazy',
+      version = '2.*',
+      config = function()
+        require('window-picker').setup()
       end,
     },
     -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
