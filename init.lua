@@ -880,6 +880,41 @@ require('lazy').setup(
         require('window-picker').setup()
       end,
     },
+
+    {
+      'windwp/nvim-ts-autotag',
+      event = 'VeryLazy',
+      config = function()
+        require('nvim-ts-autotag').setup {
+          opts = {
+            -- Defaults
+            enable_close = true, -- Auto close tags
+            enable_rename = true, -- Auto rename pairs of tags
+            enable_close_on_slash = false, -- Auto close on trailing </
+          },
+          -- Also override individual filetype configs, these take priority.
+          -- Empty by default, useful if one of the "opts" global settings
+          -- doesn't work well in a specific filetype
+          per_filetype = {
+            ['html'] = {
+              enable_close = false,
+            },
+          },
+        }
+      end,
+    },
+    {
+      'tadmccorkle/markdown.nvim',
+      ft = 'markdown', -- or 'event = "VeryLazy"'
+      opts = {
+        -- configuration here or empty for defaults
+      },
+    },
+    {
+      'preservim/vim-markdown',
+      ft = 'markdown',
+      opts = {},
+    },
     -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
     --    This is the easiest way to modularize your config.
     --
