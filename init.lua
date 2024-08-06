@@ -192,7 +192,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup(
   {
     -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-    'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+    -- this screws up indenting latex files
 
     -- NOTE: Plugins can also be added by using a table,
     -- with the first argument being the link and the following
@@ -780,7 +781,7 @@ require('lazy').setup(
       'nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
       opts = {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python', 'markdown_inline' },
         ignore_install = { 'latex' }, -- treesitter interferes with vimtex features, see :h vimtex-faq-treesitter
         -- Autoinstall languages that are not installed
         auto_install = true,
@@ -790,8 +791,12 @@ require('lazy').setup(
           --  If you are experiencing weird indenting issues, add the language to
           --  the list of additional_vim_regex_highlighting and disabled languages for indent.
           additional_vim_regex_highlighting = { 'ruby' },
-          -- Disable highlighting for tex files to try fix errors
-          disable = { 'latex', 'tex' },
+          disable = {
+            -- Disable highlighting for tex files to try fix errors
+            'latex',
+            'tex',
+            'markdown', -- When markdown has latex, it also causes issues
+          },
         },
         indent = { enable = true, disable = { 'ruby' } },
       },
@@ -844,10 +849,12 @@ require('lazy').setup(
       'lervag/vimtex',
       init = function()
         -- documentation says not to use the more common "config"
+        vim.g.vimtex_view_general_viewer = 'SumatraPDF'
+        vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
       end,
     },
     { 'Konfekt/FastFold' },
-    { 'matze/vim-tex-fold' },
+    -- { 'matze/vim-tex-fold' },
     {
       'kylechui/nvim-surround',
       version = '*', -- Use for stability; omit to use `main` branch for the latest features
@@ -921,18 +928,36 @@ require('lazy').setup(
       'mattn/emmet-vim',
       event = 'VeryLazy',
     },
-    {
-      'tadmccorkle/markdown.nvim',
-      ft = 'markdown', -- or 'event = "VeryLazy"'
-      opts = {
-        -- configuration here or empty for defaults
-      },
-    },
-    {
-      'preservim/vim-markdown',
-      ft = 'markdown',
-      opts = {},
-    },
+    -- Markdown plugins seem to clash with each other..
+    -- Only try one at a time.
+    -- {
+    --   -- something about not finding a lua file for configuration.
+    --   -- uses vim foldmethod for folding
+    --   -- clashes with ixru/nvim-markdown
+    --   'preservim/vim-markdown',
+    --   ft = 'markdown',
+    --   opts = {},
+    --   config = function() end,
+    -- },
+    -- {
+    --   -- Folding uses tab
+    --   -- preservim/vim-markdown interferes with its folding
+    --   'ixru/nvim-markdown',
+    --   ft = 'markdown',
+    --   opts = {},
+    --   config = function()
+    --     -- require('nvim-markdown').setup()
+    --   end,
+    -- },
+    -- {
+    --   -- this plugin interferes with nvim-markdown
+    --   -- Useless plugin. Does nothing useful
+    --   'tadmccorkle/markdown.nvim',
+    --   ft = 'markdown', -- or 'event = "VeryLazy"'
+    --   opts = {
+    --     -- configuration here or empty for defaults
+    --   },
+    -- },
     -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
     --    This is the easiest way to modularize your config.
     --
