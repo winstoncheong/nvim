@@ -16,7 +16,7 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function(event)
-    vim.keymap.set("n", "<space><tab>", "za", {  
+    vim.keymap.set("n", "<space><tab>", "za", {
       buffer = event.buf,  -- make mapping local to buffer
       silent=true,
       desc ='toggle fold',
