@@ -1,9 +1,8 @@
 vim.g.mapleader = " "
 
-vim.keymap.set('n', '<C-\\>', require('nvim-tree.api').tree.toggle, {
-	silent=true,
-	desc ='toggle nvim-tree',
-})
+-- toggle nvim-tree
+vim.keymap.set('n', '<C-\\>', require('nvim-tree.api').tree.toggle, { silent=true, desc ='toggle nvim-tree', })
+vim.keymap.set('n', '<C-n>', require('nvim-tree.api').tree.toggle, { silent=true, desc ='toggle nvim-tree', })
 
 -- some keymaps for telescope
 local builtin = require('telescope.builtin')
