@@ -12,17 +12,30 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
--- mapping for easier folding in tex files
+-- folding in tex files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "tex",
   callback = function(event)
-    vim.keymap.set("n", "<leader>a", "za", {
+    vim.keymap.set("n", "<Tab>", "za", {
       buffer = event.buf,  -- make mapping local to buffer
       silent=true,
       desc ='toggle fold',
     })
   end,
 })
+
+-- folding in Markdown files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function(event)
+    vim.keymap.set("n", "<Tab>", "za", {
+      buffer = event.buf,  -- make mapping local to buffer
+      silent=true,
+      desc ='toggle fold',
+    })
+  end,
+})
+
 
 -- Easier switch to alternate file
 vim.keymap.set('n', '<leader><tab>', ':e #<CR>', { desc = 'switch to alternate file' })
