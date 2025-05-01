@@ -25,5 +25,9 @@ return {
     opts = { signs = false },
   },
   { 'tpope/vim-fugitive' },
+  {
+    'lewis6991/gitsigns.nvim',
+    commit = '2149fc',
+  },
 }
 
