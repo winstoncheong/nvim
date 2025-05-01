@@ -17,8 +17,13 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 
+-- for visual wrap
 vim.opt.wrap = true
 vim.opt.linebreak = true
+
+-- trying to get hardwrap
+-- vim.opt.textwidth = 80
+-- vim.opt.formatoptions:append 't' -- text formatting at word boundaries
 
 vim.opt.incsearch = true -- incremental search
 
@@ -30,8 +35,6 @@ vim.opt.termguicolors = true
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
--- Wrap long lines better
-vim.o.linebreak = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
