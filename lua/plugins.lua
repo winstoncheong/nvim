@@ -27,7 +27,7 @@ return {
   { 'tpope/vim-fugitive' },
   {
     'lewis6991/gitsigns.nvim',
-    commit = '2149fc',
+    -- commit = '2149fc', -- fix commit version because breaking changes..
   },
 }
 
