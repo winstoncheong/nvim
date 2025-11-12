@@ -12,8 +12,8 @@ return {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/nvim-cmp",
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
+    -- "L3MON4D3/LuaSnip",
+    -- "saadparwaiz1/cmp_luasnip",
     "j-hui/fidget.nvim",
   },
   config = function()
@@ -67,7 +67,7 @@ return {
 
     -- this is the function that loads the extra snippets to luasnip
     -- from rafamadriz/friendly-snippets
-    require('luasnip.loaders.from_vscode').lazy_load()
+    -- require('luasnip.loaders.from_vscode').lazy_load()
 
     cmp.setup({
       sources = {
@@ -82,11 +82,11 @@ return {
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         -- ['<C-Space>'] = cmp.mapping.complete(),
       }),
-      snippet = {
-        expand = function(args)
-          require('luasnip').lsp_expand(args.body)
-        end,
-      },
+      -- snippet = {
+      --   expand = function(args)
+      --     require('luasnip').lsp_expand(args.body)
+      --   end,
+      -- },
     })
   end
 }
