@@ -21,6 +21,21 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Point the Python3 provider at a real interpreter.
+-- Without this, detection iterates over PATH candidates and the first
+-- `python3` hit is C:/Users/artem/bin/python3.bat, a batch shim whose
+-- `%*` forwarding mangles the provider's multi-line `-c` probe. That probe
+-- then exits 0 with empty stdout, and vim.version.lt("", "3.9") throws
+-- "invalid version: ''" whenever something calls has('python3')
+-- (e.g. vim-latex's ftplugin on BufReadPost for tex files).
+-- Bypassing detection also avoids the slow PATH scan on every startup.
+-- Guarded by executable() so this file stays commit-safe: on machines
+-- without this exact interpreter it falls back to PATH detection.
+local python3_host = "C:/Users/artem/AppData/Local/Programs/Python/Python312/python.exe"
+if vim.fn.executable(python3_host) == 1 then
+  vim.g.python3_host_prog = python3_host
+end
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
