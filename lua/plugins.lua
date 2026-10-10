@@ -8,12 +8,8 @@ return {
     priority = 1000,
     opts = {},
   },
-  {
-    'numToStr/Comment.nvim',
-    opts = {
-      -- add any options here
-    }
-  },
+  -- Using vim-commentary instead of Comment.nvim for better LaTeX support
+  { 'tpope/vim-commentary' },
   "neovim/nvim-lspconfig",
   "williamboman/mason.nvim",
   "vim-latex/vim-latex",

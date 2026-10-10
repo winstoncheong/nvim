@@ -58,6 +58,16 @@ return {
               }
             }
           })
+        end,
+        ltex_plus = function()
+          require('lspconfig').ltex_plus.setup({
+            capabilities = capabilities,
+            settings = {
+              ltex = {
+                checkFrequency = "save",
+              },
+            },
+          })
         end
       }
     })
